@@ -1,0 +1,35 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gradient: linear-gradient(
+    45deg,
+    #e7eaef,
+    #9ba8b8
+  );
+}
+
+body, #root {
+  height: 100%;
+  width: 100%;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  z-index: 0;
+  background: linear-gradient(-45deg, #585e68, #99a5b6, #c3d0e4, #f1f6ff);
+	
+}
+
+
+p {
+  color:#484e56;
+}
+
+h1 {
+  color:#080b11;
+}
+
+h2 {
+  color:#080b11;
+}
