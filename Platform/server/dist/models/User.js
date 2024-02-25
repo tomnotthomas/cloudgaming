@@ -1,8 +1,12 @@
-export{}
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
-
+const {
+  Schema
+} = mongoose;
 const gameSchema = new Schema({
   appid: Number,
   name: String,
@@ -14,51 +18,48 @@ const gameSchema = new Schema({
   playtime_linux_forever: Number,
   rtime_last_played: Number,
   content_descriptorids: [Number],
-  playtime_disconnected: Number,
+  playtime_disconnected: Number
 });
-
 const userSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Please provide an Email!'],
-    unique: [true, 'Email Exist'],
+    unique: [true, 'Email Exist']
   },
   userName: {
     type: String,
-    required: false,
+    required: false
   },
   steamID: {
     type: String,
-    required: false,
+    required: false
   },
   password: {
     type: String,
     required: [true, 'Please provide a password!'],
-    unique: false,
+    unique: false
   },
   zone: {
     type: String,
-    required: true,
+    required: true
   },
   games: {
     type: [gameSchema],
-    required: false,
+    required: false
   },
   selectedGames: {
     type: Array,
-    required: false,
+    required: false
   },
   virtualMachine: {
     type: String,
-    required: false,
+    required: false
   },
   SubscriptionStatus: {
     type: Boolean,
     default: false,
-    required: false,
-  },
+    required: false
+  }
 });
-
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

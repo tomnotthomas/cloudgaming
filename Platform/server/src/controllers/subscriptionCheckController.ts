@@ -1,9 +1,9 @@
-import { Request, Response} from 'express';
-import User from "../models/User.js";
-import dotenv from 'dotenv';
+const express = require('express');
+const User = require("../models/User");
+const dotenv = require('dotenv');
 dotenv.config();
 
-export const checkForSubscription = async (req: Request, res: Response) => {
+export const checkForSubscription = async (req:any, res:any) => {
     const email = req.body.userEmail;
     const user = await User.findOne({ email: email });
     
@@ -15,6 +15,5 @@ export const checkForSubscription = async (req: Request, res: Response) => {
         return res.status(200).send({ message: 'User has a subscription' });
     }
     
-    // If the user is found and does not have a Steam ID, send a success response
     return res.status(404).send({ error: '404', message: 'User does not have a subscription' });
 };

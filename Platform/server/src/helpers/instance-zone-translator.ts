@@ -29,7 +29,7 @@ const allocatedZones: ZoneMapping[] =
   {"Las Vegas, Nevada, North America": "us-west4-a"}
 ]
 //This translates the zone that the user chose to a zone in gcp
-export function getVmZone(area: string): string | null {
+function getVmZone(area: string): string | null {
  
   const cityObject = allocatedZones.find(obj => obj.hasOwnProperty(area));
   
@@ -39,3 +39,5 @@ export function getVmZone(area: string): string | null {
 
   return null;
 }
+
+module.exports = { getVmZone };

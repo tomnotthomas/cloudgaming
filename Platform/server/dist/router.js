@@ -1,5 +1,10 @@
+"use strict";
+
 const express = require('express');
-const { configureSessionMiddleware, passport } = require('./config/passport-config'); // Destructure the exports
+const {
+  configureSessionMiddleware,
+  passport
+} = require('./config/passport-config'); // Destructure the exports
 
 const steamController = require('./controllers/steamController');
 const userController = require('./controllers/userController');
@@ -9,21 +14,25 @@ const stopVmController = require('./controllers/stopVmController');
 const startVmController = require('./controllers/startVmController');
 const steamIDController = require('./controllers/steamIDController');
 const subscriptionCheckController = require('./controllers/subscriptionCheckController');
-
 const router = express.Router();
 
 // Route definitions
-router.get('/auth/steam', passport.authenticate('steam', { failureRedirect: '/login' }),
-  function(req:any, res:any) { res.redirect('/') });
+router.get('/auth/steam', passport.authenticate('steam', {
+  failureRedirect: '/login'
+}), function (req, res) {
+  res.redirect('/');
+});
 // Other routes...
 
 // Export the router
 module.exports = router;
 
-
 // Route definitions
-router.get('/auth/steam', passport.authenticate('steam', { failureRedirect: '/login' }),
-  function(req:any, res:any) { res.redirect('/') });
+router.get('/auth/steam', passport.authenticate('steam', {
+  failureRedirect: '/login'
+}), function (req, res) {
+  res.redirect('/');
+});
 router.post('/steamgames', steamController.getSteamGames);
 router.post('/register', userController.createUser);
 router.post('/auth', userController.authUser);

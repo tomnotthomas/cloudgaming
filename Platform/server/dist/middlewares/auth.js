@@ -1,9 +1,16 @@
-export{};
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET;
-const { Request, Response, NextFunction } = require('express');
-
-async function auth(req:any, res:any, next:any) {
+const {
+  Request,
+  Response,
+  NextFunction
+} = require('express');
+async function auth(req, res, next) {
   try {
     // Get the token from the authorization header
     const token = req.headers.authorization.split(" ")[1];
@@ -19,15 +26,13 @@ async function auth(req:any, res:any, next:any) {
 
     // Pass down functionality to the endpoint
     next();
-
   } catch (error) {
     res.status(401).json({
-      error: new Error("Invalid request to auth!"),
+      error: new Error("Invalid request to auth!")
     });
   }
 }
-
-async function authByToken(req:any, res:any, next:any) {
+async function authByToken(req, res, next) {
   try {
     // Get the token from the authorization header
     const token = req.cookies.TOKEN;
@@ -43,14 +48,12 @@ async function authByToken(req:any, res:any, next:any) {
 
     // Pass down functionality to the endpoint
     next();
-
   } catch (error) {
     res.status(401).json({
-      error: new Error("Invalid request to auth Token!"),
+      error: new Error("Invalid request to auth Token!")
     });
   }
 }
-
 module.exports = {
   auth,
   authByToken

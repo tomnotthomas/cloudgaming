@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+export {}
+const express = require('express');
 
-
- function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+function ensureAuthenticated(req:any, res:any, next:any) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
 }
 
-export default ensureAuthenticated;
+module.exports = ensureAuthenticated;
