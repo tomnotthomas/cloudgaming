@@ -28,7 +28,7 @@ const Login: React.FC = (setLoggedSteam) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            setSubscription(data.hasSubscription); // Set hasSteam based on the response
+            setSubscription(data.SubscriptionStatus); // Set hasSteam based on the response
           })
           .catch((error) => {
             console.error('Error checking subscription', error);

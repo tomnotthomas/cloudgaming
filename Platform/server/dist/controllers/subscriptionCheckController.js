@@ -16,17 +16,17 @@ const checkForSubscription = async (req, res) => {
   if (!user) {
     return res.status(404).send({
       error: '404',
-      message: 'User was not found.'
+      SubscriptionStatus: false
     });
   }
   if (user.SubscriptionStatus) {
     return res.status(200).send({
-      message: 'User has a subscription'
+      SubscriptionStatus: true
     });
   }
   return res.status(404).send({
     error: '404',
-    message: 'User does not have a subscription'
+    SubscriptionStatus: false
   });
 };
 exports.checkForSubscription = checkForSubscription;
