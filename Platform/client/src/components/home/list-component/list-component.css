@@ -1,20 +1,37 @@
 .list {
+  position:relative;
   display: flex;
   flex-direction: row;
   justify-content: left;
-  flex-wrap: wrap;
   margin-left: 20px;
   margin-right:20px;
-  background-image: none;
   background:none;
   background-repeat: no-repeat;
 }
 
 .list-big {
+  position:absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom:2%;
   margin-top: 2%;
+  z-index: 10;
 }
+
+.list-row{
+  display:flex;
+  align-content:center;
+  
+}
+
+#game-alignment{
+  display:flex;
+  flex-direction: row;
+}
+
+.customCarouselContainer { 
+  height: 300px;
+  width:100vw;
+  z-index: 1; }

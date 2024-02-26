@@ -1,25 +1,22 @@
 .small-image{
-  position: relative;
   border: solid 3px #808a98 ;
-  width: 250px;
-  height: 130px;
+  width: 220px;
+  height: 250px;
   border-radius: 10px;
-  margin-bottom: 1.9rem;
   object-fit: cover;
-  z-index: 3;
+  z-index: 0;
   filter: brightness(90%);
   display: block;
 }
 
 .small-image-info{
   position: relative;
-  width: 300px;
-  height: 180px;
+  width: 230px;
+  height: 170px;
   border-top-right-radius: 5%;
   border-top-left-radius: 5%;
   border-bottom-left-radius: 0%;
   border-bottom-right-radius:0%;
-  margin-bottom: 1.9rem;
   object-fit: cover;
   z-index: 3;
   filter: brightness(100%);
@@ -32,15 +29,16 @@
   flex-direction: column;
   margin-left:1rem;
   margin-right:1rem;
+  z-index:120;
 }
 
-#box-container:hover #info-box{
+#box-container:hover #info-box {
   position:absolute;
   display:flex;
   align-items: center;
   transition: 2s;
-  margin-left:-1.7rem;
   transition: all .5s ease;
+  z-index:120;
 }
 
 #info-box{
@@ -53,6 +51,8 @@
     border: solid #EEF6F9 2px;
     border-radius: 5%;;
     display:none;
+  margin-top:-15px;
+    height: 280px;
 }
 
 #info-details{
@@ -60,18 +60,34 @@
   align-items: center;
 }
 
-#gamepad-icon{
+#shoppingcart-icon{
   margin-top: 10%;
-  margin-bottom:4%;
-  font-size:90px;
+  margin-bottom:1%;
+  font-size:40px;
   color: #05828e;
 }
 
-#gamepad-icon:hover{
+#shoppingcart-icon:hover{
   background-color:#EEF6F9;
   border:#05828e solid 2px;
   border-radius:100%;
 }
+
+
+#shoppingcart-icon{
+  margin-top: 10%;
+  margin-bottom:1%;
+  font-size:40px;
+  color: #05828e;
+}
+
+#shoppingcart-icon:hover{
+  background-color:#EEF6F9;
+  border:#05828e solid 2px;
+  border-radius:100%;
+}
+
+
 
 #play-rating{
   display:flex;
