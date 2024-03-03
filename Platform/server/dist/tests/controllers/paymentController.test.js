@@ -30,7 +30,7 @@ _globals.jest.mock('../../models/User');
       email: 'test@example.com',
       password: 'password123',
       // Add a sample password
-      zone: 'Frankfurt, Germany, Europe' // Add a sample zone
+      region: 'Frankfurt, Germany, Europe' // Add a sample zone
     };
 
     // Create a new user with the specified data

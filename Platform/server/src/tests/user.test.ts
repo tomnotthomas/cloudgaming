@@ -17,7 +17,7 @@ describe('user', () => {
         const user = {
           email: 'buttor@example.com',
           password: 'ownefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
       
         const response = await supertest(server).post('/register').send(user);
@@ -46,7 +46,7 @@ describe('user', () => {
         const user = {
           email: 'brad@example.com',
           password: 'owne32efefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
       
         await supertest(server).post('/register').send(user);
@@ -66,7 +66,7 @@ describe('user', () => {
       it('should return a 400', async () => {
         const user = {
           password: 'ownefp2fe3f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
        
         const response = await supertest(server).post('/register').send(user);
@@ -85,7 +85,7 @@ describe('user', () => {
       it('should return a 400', async () => {
         const user = {
           email: 'buor@example.com',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
        
         const response = await supertest(server).post('/register').send(user);
@@ -96,10 +96,10 @@ describe('user', () => {
   });
 });
 
-//Check whether a user can be created without zone
+//Check whether a user can be created without region
 describe('user', () => {
   describe('Create a user', () => {
-    describe('Create user without zone should not work', () => {
+    describe('Create user without region should not work', () => {
       it('should return a 400', async () => {
         const user = {
           email: 'buor@example.com',
@@ -125,7 +125,7 @@ describe ( 'User subscription', ()=> {
         const user = {
           email: 'ther@example.com',
           password: 'owdfdsnefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         
         await supertest(server).post('/register').send(user);
@@ -157,7 +157,7 @@ describe ( 'User subscription', ()=> {
         const user = {
           email: 'ther@example.com',
           password: 'owdfdsnefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Frankfurt, Germany, Europe'
         };
         
         const checkSubscription = await supertest(server).post('/checksubscription') .send(user.email)

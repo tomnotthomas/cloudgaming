@@ -19,7 +19,7 @@ export interface User {
   userName?: string | null;   // '?' indicates that the property is optional
   steamID?: string;
   password: string;
-  zone: string;
+  region: string;
   games?: Game[];  // Uses the Game interface
   selectedGames?: any[];  // Specify more specific type if possible
   virtualMachine?: string;

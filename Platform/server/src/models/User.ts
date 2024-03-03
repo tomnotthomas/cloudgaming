@@ -36,7 +36,7 @@ const userSchema = new Schema({
     required: [true, 'Please provide a password!'],
     unique: false,
   },
-  zone: {
+  region: {
     type: String,
     required: true,
   },
@@ -57,6 +57,11 @@ const userSchema = new Schema({
     default: false,
     required: false,
   },
+  plan_id: {
+    type: String,
+    default: false,
+    required: false,
+  }
 });
 
 const User = mongoose.model('User', userSchema);

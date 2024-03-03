@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { zones } from "./zones.tsx";
+import { regions } from "./regions.tsx";
 import "./RegistrationPage.css"
 import { Link } from 'react-router-dom';
 
@@ -67,7 +67,7 @@ export default function RegistrationPage() {
         body: JSON.stringify({
           email,
           password,
-          zone: selectedCity,
+          region: selectedCity,
         }),
       });
 
@@ -129,7 +129,7 @@ export default function RegistrationPage() {
             onChange={(e) => setSelectedCity(e.target.value)}
           >
             <option value="">Select a city<br></br></option>
-            {zones.map((city, index) => (
+            {regions.map((city, index) => (
               <option key={index} value={city}>
                 {city}
               </option>

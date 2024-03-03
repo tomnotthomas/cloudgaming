@@ -6,10 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 const express = require('express');
 const dotenv = require('dotenv');
 const User = require('../models/User');
-const getVmZone = require('../helpers/instance-zone-translator');
-const cloudVmStarter = require('../google/cloud-vm-start');
+const cloudVmStarter = require('../azure/cloud-vm-start');
 dotenv.config();
-const GOOGLE_CLOUD_PROJECT_ID = process.env.GOOGLE_PROJ_ID;
 const startVm = async (req, res) => {
   try {
     const email = req.body.userEmail;
@@ -27,11 +25,11 @@ const startVm = async (req, res) => {
     // Check if user already has a VM
     if (user.virtualMachine) {
       // Collect the arguments for cloudVmStarter
-      const vmZone = getVmZone(user.zone);
+
       const vmName = user.virtualMachine;
-      console.log(vmZone, vmName);
+      const resourceGroup = process.env.AZURE_RESOURCE_GROUP_DEV;
       try {
-        await cloudVmStarter.main(vmName, GOOGLE_CLOUD_PROJECT_ID, vmZone);
+        await cloudVmStarter.main(resourceGroup, vmName);
       } catch (error) {
         console.error('Error calling main function:', error);
         res.status(500).json({

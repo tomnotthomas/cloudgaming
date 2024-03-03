@@ -7,9 +7,7 @@ const dotenv = require('dotenv');
 const {
   getVmZone
 } = require('./instance-zone-translator');
-const {
-  instanceConfigurator
-} = require('./instance-resource-template');
+const instanceConfigurator = require('./instance-resource-template');
 const {
   User
 } = require('../controllers/interfaces/interfaces');
@@ -24,8 +22,8 @@ async function createAndStopVM(user) {
   const vmName = user.virtualMachine;
   const configuredResource = instanceConfigurator(vmZone, vmName);
   console.log(vmZone, vmName, configuredResource);
-  const cloudVmCreator = require('../google/cloud-vm-creator.cjs');
-  const cloudVmStopper = require('../google/cloud-vm-stop.cjs');
+  const cloudVmCreator = require('../google/cloud-vm-creator');
+  const cloudVmStopper = require('../google/cloud-vm-stop');
   try {
     await cloudVmCreator.main(configuredResource, GOOGLE_CLOUD_PROJECT_ID, vmZone);
     await cloudVmStopper.main(vmName, GOOGLE_CLOUD_PROJECT_ID, vmZone);

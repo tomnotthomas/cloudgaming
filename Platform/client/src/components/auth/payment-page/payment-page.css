@@ -316,12 +316,12 @@
   margin-right:2%;
 }
 
-#paypal {
+#paypal-custom {
   font-size: 80px;
   z-index: 2;
 }
 
-#paypal:hover {
+#paypal-custom:hover {
   color:#05828e;
 
 }

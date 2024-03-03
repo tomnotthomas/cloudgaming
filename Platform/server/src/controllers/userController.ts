@@ -17,7 +17,7 @@ export async function createUser (req:any, res:any): Promise<void> {
     const newUser = new User({
       email: email,
       password: hashedPassword,
-      zone: req.body.zone
+      region: req.body.region
     });
     const savedUser = await newUser.save();
     res.status(201).send(savedUser);

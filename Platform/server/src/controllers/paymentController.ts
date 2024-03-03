@@ -5,11 +5,10 @@ const dotenv = require('dotenv');
 const User = require('../models/User');
 const interfaces = require('../controllers/interfaces/interfaces');
 const generateVmName = require('../helpers/instance-resource-name-generator');
-const vmCreationProcess = require('../helpers/instance-resource-vm-creation-process');
+import { createAndStopVM } from "../helpers/azure/register-stop-process";
 
 dotenv.config();
 
-const GOOGLE_CLOUD_PROJECT_ID = process.env.GOOGLE_PROJ_ID;
 
 const setPaymentStatus = async (req:any, res:any) => {
   try {
@@ -26,16 +25,18 @@ const setPaymentStatus = async (req:any, res:any) => {
       const vm = await generateVmName();
       user.virtualMachine = vm;
       user.SubscriptionStatus = true;
-      await user.save();
 
       // Converting user to TypeScript interface type
       const userInterface = user.toObject(); // Assuming toObject() returns the correct format
 
-      const vmCreationResult = await vmCreationProcess.createAndStopVM(userInterface);
+      const vmCreationResult = await createAndStopVM(userInterface);
       if (vmCreationResult === '500') {
         res.status(500).json({ message: 'Error creating VM' });
         return;
+      } else {
+        await user.save();
       }
+
     }
 
     // This is the response that will be sent back.

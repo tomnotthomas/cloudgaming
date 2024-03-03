@@ -2,7 +2,6 @@ const express = require('express');
 const fetch = require('cross-fetch');
 const dotenv = require('dotenv');
 const User = require('../models/User');
-const generateVmName = require('../helpers/instance-resource-name-generator');
 
 dotenv.config();
 

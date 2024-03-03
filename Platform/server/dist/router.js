@@ -1,5 +1,8 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const express = require('express');
 const {
   configureSessionMiddleware,
@@ -14,6 +17,8 @@ const stopVmController = require('./controllers/stopVmController');
 const startVmController = require('./controllers/startVmController');
 const steamIDController = require('./controllers/steamIDController');
 const subscriptionCheckController = require('./controllers/subscriptionCheckController');
+const paypalController = require('./controllers/PayPalController');
+const deletePaidUserController = require('./controllers/deleteUserController');
 const router = express.Router();
 
 // Route definitions
@@ -42,6 +47,7 @@ router.post('/stopvm', stopVmController.stopVm);
 router.post('/startvm', startVmController.startVm);
 router.post('/checksteamid', steamIDController.checkSteamID);
 router.post('/checksubscription', subscriptionCheckController.checkForSubscription);
-
+router.post('/api/paypal/create-subscription', paypalController.createPaypalSubscription);
+router.delete('/paiduser', deletePaidUserController.deleteUser);
 // Export the router
 module.exports = router;

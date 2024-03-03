@@ -1,11 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const User = require('../models/User');
-const getVmZone = require('../helpers/instance-zone-translator');
-
+import { virtualMachinesDeallocate } from '../azure/cloud-vm-stop'
 dotenv.config();
 
-const GOOGLE_CLOUD_PROJECT_ID = process.env.GOOGLE_PROJ_ID;
 
 export const stopVm = async (req:any, res:any) => {
   try {
@@ -20,13 +18,12 @@ export const stopVm = async (req:any, res:any) => {
     // Check if user already has a VM
     if (user.virtualMachine) {
       // Collect the arguments for cloudVMStopper
-      const vmZone = getVmZone(user.zone);
       const vmName = user.virtualMachine;
-      console.log(vmZone, vmName);
+      const resourceGroup = process.env.AZURE_RESOURCE_GROUP_DEV || "NO RESOURCE GROUP"
 
-      const cloudVmStopper = require('../google/cloud-vm-stop.cjs');
+
       try {
-        await cloudVmStopper.main(vmName, GOOGLE_CLOUD_PROJECT_ID, vmZone);
+        await virtualMachinesDeallocate(resourceGroup, vmName);
       } catch (error) {
         console.error('Error calling main function:', error);
         res.status(500).json({ message: 'Error stopping vm' });

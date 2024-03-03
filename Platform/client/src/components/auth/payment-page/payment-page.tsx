@@ -22,13 +22,13 @@ function PaymentPage() {
   const [message, setMessage] = useState("");
 
   const initialOptions = {
-    "client-id": "test",
+    "client-id": `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
     "enable-funding": "paylater,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
     vault: "true",
     intent: "subscription",
-    components: "buttons",  // Add this line
+    components: "buttons"
   };
 
 
@@ -82,8 +82,8 @@ function PaymentPage() {
   };
 
 
-  return  <div id='backbox'>
-
+  return (
+   <div id='backbox'>
   <div id='box'>
   <div id="info-steam-connect">
   <h2>Subscribe now</h2>
@@ -106,12 +106,15 @@ function PaymentPage() {
           }}
           createSubscription={async () => {
             try {
-              const response = await fetch("/api/paypal/create-subscription", {
+              const response = await fetch("http://localhost:3001/api/paypal/create-subscription", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userAction: "SUBSCRIBE_NOW" }),
+                body: JSON.stringify({
+                  userAction: "SUBSCRIBE_NOW", 
+                  userEmail: cookies.get('USER_DATA')?.email
+              }),
               });
               const data = await response.json();
               if (data?.id) {
@@ -144,6 +147,10 @@ function PaymentPage() {
               https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create
             */
             if (data.orderID) {
+             //set subscription to yes in database
+              setPaymentStatusAndVM();
+              
+
               setMessage(
                 `You have successfully subscribed to the plan. Your subscription id is: ${data.subscriptionID}`,
               );
@@ -158,25 +165,7 @@ function PaymentPage() {
       <Message content={message} />
     </div>
   ;
-
-
-
-
-
-
-
-      <div>
-        <FaCcPaypal id='paypal' onClick={setPaymentStatusAndVM}/>
-        <div className="icon-cards">
-          <FaCcMastercard className='card' />
-          <SiAmericanexpress className='card'/>
-          <FaCcDiscover className='card'/>
-          <FaCcJcb className='card'/>
-        </div>
-      </div>
-      <div id='steam-container-subscribe'>        
-               
-         
+      <div id='steam-container-subscribe'>             
           {isLoading && 
           <div className = 'loader-subscribe'> </div>
         }
@@ -186,6 +175,7 @@ function PaymentPage() {
 
       </div>
     </div>
+  )
 }
 
 export default PaymentPage

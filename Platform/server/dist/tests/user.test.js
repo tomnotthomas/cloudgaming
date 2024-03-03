@@ -18,7 +18,7 @@ const __basedir = __dirname;
         const user = {
           email: 'buttor@example.com',
           password: 'ownefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         const response = await (0, _supertest.default)(server).post('/register').send(user);
         (0, _globals.expect)(response.status).toBe(201);
@@ -49,7 +49,7 @@ const __basedir = __dirname;
         const user = {
           email: 'brad@example.com',
           password: 'owne32efefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         await (0, _supertest.default)(server).post('/register').send(user);
         const duplicateResponse = await (0, _supertest.default)(server).post('/register').send(user);
@@ -66,7 +66,7 @@ const __basedir = __dirname;
       (0, _globals.it)('should return a 400', async () => {
         const user = {
           password: 'ownefp2fe3f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         const response = await (0, _supertest.default)(server).post('/register').send(user);
         (0, _globals.expect)(response.status).toBe(400);
@@ -82,7 +82,7 @@ const __basedir = __dirname;
       (0, _globals.it)('should return a 400', async () => {
         const user = {
           email: 'buor@example.com',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         const response = await (0, _supertest.default)(server).post('/register').send(user);
         (0, _globals.expect)(response.status).toBe(400);
@@ -91,10 +91,10 @@ const __basedir = __dirname;
   });
 });
 
-//Check whether a user can be created without zone
+//Check whether a user can be created without region
 (0, _globals.describe)('user', () => {
   (0, _globals.describe)('Create a user', () => {
-    (0, _globals.describe)('Create user without zone should not work', () => {
+    (0, _globals.describe)('Create user without region should not work', () => {
       (0, _globals.it)('should return a 400', async () => {
         const user = {
           email: 'buor@example.com',
@@ -115,7 +115,7 @@ const __basedir = __dirname;
         const user = {
           email: 'ther@example.com',
           password: 'owdfdsnefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Richmond, Virginia, USA'
         };
         await (0, _supertest.default)(server).post('/register').send(user);
         const checkSubscription = await (0, _supertest.default)(server).post('/checksubscription').send(user.email);
@@ -147,7 +147,7 @@ const __basedir = __dirname;
         const user = {
           email: 'ther@example.com',
           password: 'owdfdsnefp23f',
-          zone: 'Frankfurt, Germany, Europe'
+          region: 'Frankfurt, Germany, Europe'
         };
         const checkSubscription = await (0, _supertest.default)(server).post('/checksubscription').send(user.email);
         (0, _globals.expect)(checkSubscription.status).toBe(404);

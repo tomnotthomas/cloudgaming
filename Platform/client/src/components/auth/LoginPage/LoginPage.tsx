@@ -14,26 +14,30 @@ const Login: React.FC = (setLoggedSteam) => {
     const [passwordError, setPasswordError] = useState<string>("");
     const [login, setLogin] = useState(false);
     const [hasSubscription, setSubscription] =useState(false);
+    const [checkSubscriptionTrigger, setCheckSubscriptionTrigger] = useState(false); // New state to trigger useEffect
+
 
     useEffect(() => {
-        // Fetch and check Steam ID when component mounts or userEmail changes
-        fetch('http://localhost:3001/checksubscription', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userEmail: cookies.get('USER_DATA')?.email,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setSubscription(data.SubscriptionStatus); // Set hasSteam based on the response
-          })
-          .catch((error) => {
-            console.error('Error checking subscription', error);
-          });
-      }, [cookies.get('USER_DATA')?.email]);
+        if (checkSubscriptionTrigger) { // Check if trigger is true
+            // Fetch and check subscription status
+            fetch('http://localhost:3001/checksubscription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userEmail: cookies.get('USER_DATA')?.email,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setSubscription(data.SubscriptionStatus);
+                })
+                .catch((error) => {
+                    console.error('Error checking subscription', error);
+                });
+        }
+    }, [checkSubscriptionTrigger, cookies.get('USER_DATA')?.email]); 
     
 
     const navigate = useNavigate();
@@ -97,6 +101,9 @@ const Login: React.FC = (setLoggedSteam) => {
             cookies.set("USER_DATA", JSON.stringify(newUser), {
                 path: "/",
             });
+
+            setCheckSubscriptionTrigger(!checkSubscriptionTrigger);
+
             if(hasSubscription){
                 navigate('/')
             }else {
