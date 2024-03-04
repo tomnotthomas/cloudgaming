@@ -17,19 +17,27 @@ body, #root {
   width: 100%;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   z-index: 0;
-  background: linear-gradient(-45deg, #585e68, #99a5b6, #c3d0e4, #f1f6ff);
+  background: #393E46;
 	
 }
 
 
 p {
-  color:#484e56;
+  color:white;
 }
 
 h1 {
-  color:#080b11;
+  color:white;
 }
 
 h2 {
-  color:#080b11;
+  color:white;
+}
+
+h3 {
+  color:white;
+}
+
+h4 {
+  color:white;
 }

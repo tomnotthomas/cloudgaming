@@ -1,11 +1,11 @@
-#container {
+.myUniqueCarousel .container {
   width:100%;
   position: relative;
   overflow:hidden;
   object-fit: cover;
 }
 
-#top-banner {
+.myUniqueCarousel .image-element {
   position: relative;
   overflow:auto;
   width: 100%;
@@ -13,7 +13,16 @@
   z-index: 0;
 }
 
-.customCarouselContainer-header { 
+
+.myUniqueCarousel .top-banner {
+  position: relative;
+  overflow:auto;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+}
+
+.myUniqueCarousel .customCarouselContainer-header { 
   height: 100vh;
   width:100vw;
   z-index: 1;
@@ -21,59 +30,68 @@
 
  }
 
- .carousel-container {
+ .myUniqueCarousel  .carousel-container {
   overflow: hidden; /* Hide overflow to prevent scrollbars */
   display: flex;
   align-items: center;
   align-content: center;
 }
 
-.react-multi-carousel-item {
+.myUniqueCarousel .react-multi-carousel-item {
   transition: transform 0.8s ease, opacity 0.8s ease; /* Smooth transition for both transform and opacity */
-  z-index: 0; /* Set z-index to lower than the gradient */
-
+  z-index: 1; /* Corrected redundant z-index property */
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-.react-multi-carousel-item img {
+.myUniqueCarousel .react-multi-carousel-item img {
   width: 100%;
   height: auto;
-  position:relative;
-}
-
-.image-container {
   position: relative;
 }
 
-.image-container img {
-  width: 100%;
-  height: auto;
+
+.myUniqueCarousel .image-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow:hidden;
 }
 
-#grad {
+.myUniqueCarousel .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+}
+
+.myUniqueCarousel .grad {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 50%, transparent 50%, rgba(0,0,0,0.8));
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 50%, transparent 50%, rgba(0,0,0,0.8));
 }
 
-.react-multi-carousel-item--active {
+.myUniqueCarousel .react-multi-carousel-item--active {
   transform: scale(1.1); /* Zoom in effect for active item */
   opacity: 1; /* Make active item fully visible */
 }
 
-.react-multi-carousel-item:not(.react-multi-carousel-item--active) {
+.myUniqueCarousel .react-multi-carousel-item:not(.react-multi-carousel-item--active) {
   opacity: 0.5; /* Reduce opacity for inactive items */
 }
 
-.react-multi-carousel-dot {
+.myUniqueCarousel .react-multi-carousel-dot {
   display: none;
 }
 
 /* Custom pagination indicator container */
-.custom-pagination {
+.myUniqueCarousel .custom-pagination {
   position: absolute;
   bottom: 10px;
   left: 50%; /* Move the container to the horizontal center */
@@ -85,7 +103,7 @@
 }
 
 /* Custom pagination indicator line */
-.custom-pagination-line {
+.myUniqueCarousel .custom-pagination-line {
   width: 100%; /* Adjust line width as needed */
   height: 4px; /* Adjust line height as needed */
   background-color: #ccc; /* Adjust line color as needed */
@@ -94,11 +112,11 @@
 }
 
 /* Active state for custom pagination indicator line */
-.custom-pagination-line.active {
+.myUniqueCarousel .custom-pagination-line.active {
   background-color: #333; /* Adjust active line color as needed */
 }
 
-.game-title-container {
+.myUniqueCarousel .game-title-container {
   position: absolute;
   top: 75%; /* Adjust as needed */
   left: 18%; /* Adjust as needed */
@@ -132,20 +150,39 @@
   margin-top:10%;
   transform: translate(-50%, -50%); /* Center the title */
   z-index:5;
-
+  border-style:solid ;
+  border-width: 1px;
+  border-color: #05828e;
   z-index: 1;
   height: 6%;
   width: 18vw;
 }
 
-.video-container {
-  position: relative;
+
+.myUniqueCarousel .video-container {
+  display: flex; /* Use flexbox to center the video */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  overflow: hidden; /* Hide the overflow outside the container */
 }
 
-.controls {
+
+
+.myUniqueCarousel .video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Adjust the video to fit within the container */
+  display: block;
+}
+
+
+
+
+
+.myUniqueCarousel .controls {
   position: absolute;
   top: 90%; /* Adjust as needed */
-  left: 18%;
+  left: 72%;
   bottom: 10px;
   right: 10px;
   z-index: 2;
@@ -153,8 +190,13 @@
 
 }
 
-.control-button {
-  margin-right: 10px;
-  background-color: blue;
-  width:200px;
+.myUniqueCarousel .control-button {
+  font-size:x-large;
+  color: white;
+  margin-right: 1vw;
+  opacity: 0.7;
+}
+
+#game-description-header {
+  color:white;
 }

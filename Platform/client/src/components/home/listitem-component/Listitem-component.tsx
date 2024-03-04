@@ -4,9 +4,10 @@ import './listitem-component.css';
 import { TiShoppingCart } from "react-icons/ti";
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../../AppContext.tsx'; // Import the context hook
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 function ListItem({ game }) {
-
+console.log(game)
   const navigate = useNavigate();
 
   const linkToSteamStore = () => {
@@ -37,28 +38,22 @@ function ListItem({ game }) {
   return (
     <>
     <div id='box-container'>
-      <div id='info-box'>
-        <LazyLoadImage
-          className='small-image-info'
-          src={game.background_image}
-          alt={game.name} 
-          effect="blur" 
-        />
-        <h2>{game.name}</h2>
-        <div id='info-details'>
-          <p>Rating {game.rating}</p>
-        </div>
-        <div id='play-rating'>
-          <TiShoppingCart id='shoppingcart-icon' onClick={linkToSteamStore} />
-
-        </div>
-      </div>
       <LazyLoadImage
         className='small-image'
         src={game.background_image}
         alt={game.name} // use game.name for alt text
         effect="blur" // Optional effect
+
       />
+      <div id='container-below-image-listitem'>
+        <div id='container-information-listitem'>
+          <p id='game-name-listitem'>{game.name}</p>
+          <p id='game-rating-listitem'>Rating {game.rating}</p>
+          <p id='game-released-listitem'>Released on {game.released}</p>
+      </div>
+      <IoIosInformationCircleOutline className='information-listitem' />
+      <TiShoppingCart className='shoppingcard-listitem' onClick={linkToSteamStore} />
+    </div>
     </div>
     </>
   )

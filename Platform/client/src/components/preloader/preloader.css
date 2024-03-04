@@ -32,6 +32,8 @@
           stroke-linecap: round;
       }
       polygon {
+        border-style:solid 1px;
+        border-color:#05828e;
           stroke-dasharray: 145 (221 - 145) 145 (221 - 145);
           stroke-dashoffset: 0;
           animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
@@ -147,7 +149,7 @@ html {
 
 .preloader-container {
   min-height: 100vh;
-  background: linear-gradient(-45deg, #585e68, #99a5b6, #c3d0e4, #f1f6ff);
+  background: linear-gradient(135deg, #393E46 0%, #5a606c 50%, #858a91 90%, #848891 100%);
   display: flex;
   justify-content: center;
   align-items: center;

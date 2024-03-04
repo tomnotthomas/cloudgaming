@@ -1,10 +1,9 @@
-// top-banner-component.js
-
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './top-banner-component.css';
 import { FaRegCircleStop } from "react-icons/fa6";
+import { IoVolumeMute, IoVolumeHigh, IoPlayCircleOutline } from "react-icons/io5";
 
 const responsive = {
   superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 1 },
@@ -15,11 +14,12 @@ const responsive = {
 
 function TopBanner({ games }) {
   const [topTrailers, setTopTrailers] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (games && games.results) {
-      console.log(games.results);
       const fetchTrailersAndImages = async () => {
         const trailersAndImages = await Promise.all(
           games.results.slice(0, 8).map(async (game) => {
@@ -33,7 +33,6 @@ function TopBanner({ games }) {
               };
             } catch (error) {
               console.error('Error fetching trailers:', error);
-              // Fallback to background image in case of any error
               return {
                 type: 'image',
                 src: game.background_image,
@@ -43,21 +42,57 @@ function TopBanner({ games }) {
         );
         setTopTrailers(trailersAndImages);
       };
-
+  
       fetchTrailersAndImages();
     }
   }, [games]);
 
-  const handleDotClick = (index) => {
-    setActiveIndex(index);
+  const handlePlayPauseToggle = (index) => {
+    const videoElement = document.getElementById(`top-banner-${index}`);
+    if (videoElement) {
+      if (videoElement.paused || !isPlaying) {
+        videoElement.play();
+        setIsPlaying(true);
+      } else {
+        videoElement.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  const handleMuteToggle = () => {
+    setIsMuted(!isMuted);
+    topTrailers.forEach((_, index) => {
+      const videoElement = document.getElementById(`top-banner-${index}`);
+      if (videoElement) {
+        videoElement.muted = !isMuted;
+      }
+    });
+  };
+
+  const ButtonGroup = ({ goToSlide }) => {
+    return (
+      <div className="custom-pagination">
+        {topTrailers.map((_, index) => (
+          <div
+            key={index}
+            className={`custom-pagination-line ${activeIndex === index ? 'active' : ''}`}
+            onClick={() => {
+              goToSlide(index);
+              setActiveIndex(index); // Update the active index on click
+            }}
+          />
+        ))}
+      </div>
+    );
   };
 
   return (
-    <div id='container'>
+    <div className="myUniqueCarousel container">
       <Carousel
         swipeable={true}
         draggable={true}
-        showDots={false} // Disable default dots
+        showDots={false}
         responsive={responsive}
         removeArrowOnDeviceType={["tablet", "mobile", "desktop", "superLargeDesktop"]}
         infinite={true}
@@ -67,47 +102,51 @@ function TopBanner({ games }) {
         customTransition="all .5"
         transitionDuration={500}
         containerClass="carousel-container"
-        afterChange={(nextSlide) => setActiveIndex(nextSlide)}
+        beforeChange={(previousSlide, nextSlide) => setActiveIndex(nextSlide)}
+        customButtonGroup={<ButtonGroup goToSlide={(index) => setActiveIndex(index)} />}
       >
-       {topTrailers.map((item, index) => (
+        {topTrailers.map((item, index) => (
           <div key={index} className="carousel-item">
-          {item.type === 'video' ? (
+            {item.type === 'video' ? (
               <div className="video-container">
-              <video loop id='top-banner' src={item.src} autoPlay muted />
-              <div className="controls">
-                <FaRegCircleStop className="control-button" />
-
-                <button className="control-button">Mute/Unmute</button>
+                <video
+                  ref={el => el && (el.muted = isMuted)}
+                  loop
+                  id={`top-banner-${index}`}
+                  src={item.src}
+                  autoPlay={isPlaying}
+                  playsInline
+                  className='video-element'
+                />
+                  <div className="grad"></div>
+                <div className="controls">
+                  {isPlaying ? (
+                    <FaRegCircleStop className="control-button" onClick={() => handlePlayPauseToggle(index)} />
+                  ) : (
+                    <IoPlayCircleOutline className="control-button" onClick={() => handlePlayPauseToggle(index)} />
+                  )}
+                  {isMuted ? (
+                    <IoVolumeMute className="control-button" onClick={handleMuteToggle} />
+                  ) : (
+                    <IoVolumeHigh className="control-button" onClick={handleMuteToggle} />
+                  )}
+                </div>
               </div>
-            </div>          ) : (
-            <div className="image-container">
+            ) : (
+              <div className="image-container">
+                <img src={item.src} alt="Game background" className='image-element' />
+                <div className="grad"></div>
 
-            <img src={item.src} alt="Game background" id='top-banner' />
-            <div id="grad"></div>
+              </div>
+            )}
+            <div className="game-title-container">
+              <h2 id='game-name-header'>Play games such as {games.results[index]?.name}</h2>
+              <p id='game-description-header'>Unlock limitless gaming on Mac with our $4/month pay-as-you-go service. Play at your pace, pay for what you love.</p>
             </div>
-          )}
-    <div className="game-title-container">
-    <h2 id='game-name-header'>Play games such as {games.results[index].name}</h2>
-      <p id='game-name-header'>Unlock limitless gaming on Mac with our $4/month pay-as-you-go service. Play at your pace, pay for what you love.</p>
-      
-      </div>
-      <button id='signup'>Sign up today</button>
- {/* Display game title */}
-  </div>
-))}
-
-      </Carousel>
-      
-      {/* Custom pagination indicators */}
-      <div className="custom-pagination">
-        {topTrailers.map((_, index) => (
-          <div
-            key={index}
-            className={`custom-pagination-line ${activeIndex === index ? 'active' : ''}`}
-            onClick={() => handleDotClick(index)}
-          />
+            <button id='signup'>Sign up today</button>
+          </div>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 }

@@ -108,15 +108,13 @@ function Home({ setLoggedSteam, loggedSteam }) {
       </div>
     ) : (
       <>
-        <div id='my-steam-games-alignment'>
-          <h1 id ='my-steam-games-homepage'> My Steam Games</h1>
-        </div>
+        <h2 className='category-homepage'> My Steam Games</h2>
         <List games ={steamGames}/>
-        <h1 className='category-homepage'>Action</h1>
+        <h2 className='category-homepage'>Action</h2>
         <List games ={gamesRow1}/>
-        <h1 className='category-homepage'>Sports</h1>
+        <h2 className='category-homepage'>Sports</h2>
         <List games ={gamesRow2}/>
-        <h1 className='category-homepage'>Strategy</h1>
+        <h2 className='category-homepage'>Strategy</h2>
         <List games ={gamesRow3}/>
       </>
     )}
